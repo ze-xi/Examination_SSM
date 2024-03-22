@@ -1,16 +1,14 @@
 # 简介
-这个项目是一个简单的教务查询系统，该练手小项目希望能帮助到大家，熟悉SSM的整合开发
-
+这个项目是某个项目的二次开发版本，用于熟悉SSM开发。
+主要开发了一个资料管理的模块，资料包含jpg、png、zip。
 # 使用技术
 IOC容器：Spring
-00
+
 Web框架：SpringMVC
 
 ORM框架：Mybatis
 
 安全框架：Shiro
-
-数据源：C3P0
 
 日志：log4j
 
@@ -45,12 +43,14 @@ ORM框架：Mybatis
 * 教师管理：同上
 * 账户密码重置：
 * 修改密码：
+* 资料总管理：增加、删除
 ![image](http://imgsrc.baidu.com/forum/pic/item/96499412c8fcc3ce82d37e989845d688d53f20e7.jpg)
 ![image](http://imgsrc.baidu.com/forum/pic/item/e8829bfd5266d0165ce22a839d2bd40734fa357f.jpg)
 ![image](http://imgsrc.baidu.com/forum/pic/item/004a5ef082025aafccfdca60f1edab64024f1a23.jpg)
 ### 3、教师模块功能
 教师登陆后，可以获取其，教授的课程列表，并可以给已经选择该课程的同学打分，无法对已经给完分的同学进行二次操作
 * 我的课程
+* 我的班级资料：对当前班级资料增加、删除
 * 修改密码
 ![image](http://imgsrc.baidu.com/forum/pic/item/db884fd9f2d3572c8f662b778013632763d0c36b.jpg)
 ![image](http://imgsrc.baidu.com/forum/pic/item/7e08dedeb48f8c549e49728430292df5e1fe7f58.jpg)
@@ -60,6 +60,7 @@ ORM框架：Mybatis
 * 所有课程: 在这里选修课程，选好后，将会自动跳转到已选课程选项
 * 已选课程: 这里显示的是，还没修完的课程，也就是老师还没给成绩，由于还没有给成绩，所以这里可以进行退课操作
 * 已修课程: 显示已经修完，老师已经给成绩的课程
+* 我的班级资料：新增资料，删除只属于自己的资料
 * 修改密码:
 ![image](http://imgsrc.baidu.com/forum/pic/item/8f86a0b1cb1349541f345ecf5c4e9258d0094ac8.jpg)
 ![image](http://imgsrc.baidu.com/forum/pic/item/4f0822b30f2442a7871a4b0edb43ad4bd01302da.jpg)
