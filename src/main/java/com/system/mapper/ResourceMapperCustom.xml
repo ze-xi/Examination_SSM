@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<!--teacherMapper-->
+
+<mapper namespace="com.system.mapper.ResourceMapperCustom">
+    <resultMap id="BaseResultMap" type="com.system.po.ResourceCustom" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="is_teacher" property="isTeacher" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="course_id" property="courseId" jdbcType="INTEGER" />
+        <result column="photos" property="photos" jdbcType="VARCHAR" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="DATE" />
+    </resultMap>
+    <sql id="Resource_BaseColumn_List" >
+    id, is_teacher, user_id, course_id, photos, gmt_create
+  </sql>
+    <select id="findByPaging" parameterType="PagingVO" resultMap="BaseResultMap">
+        SELECT
+            resource.id,resource.is_teacher,resource.user_id,
+            resource.course_id,resource.photos,resource.gmt_create
+        FROM resource
+        limit #{toPageNo}, #{pageSize}
+    </select>
+    <select id="findNameByStudentId" parameterType="Integer" resultType="String">
+        SELECT DISTINCT student.userName FROM resource,student
+        WHERE resource.user_id=student.userID and user_id=#{user_id};
+    </select>
+    <select id="findNameByTeacherId" parameterType="Integer" resultType="String">
+        SELECT DISTINCT teacher.userName FROM resource,teacher
+        WHERE resource.user_id=teacher.userID and user_id=#{user_id};
+    </select>
+    <select id="findNameByCourse" parameterType="Integer" resultType="String">
+        SELECT DISTINCT course.courseName FROM resource,course
+        WHERE resource.course_id=course.courseID and courseID=#{course_id};
+    </select>
+    <select id="CountResourceById" parameterType="Integer" resultType="Integer">
+        SELECT count(id) FROM resource
+        WHERE id=#{id};
+    </select>
+    <parameterMap id="resourceParam" type="com.system.po.ResourceParameter">
+        <parameter property="id" javaType="Integer"/>
+        <parameter property="userId" javaType="Integer"/>
+    </parameterMap>
+    <select id="CountByIdAndUserId" parameterMap="resourceParam" resultType="Integer">
+        SELECT count(id) FROM resource
+        WHERE id=#{id} and user_id=#{userId};
+    </select>
+    <select id="findPhotoById" parameterType="Integer" resultType="String">
+        SELECT DISTINCT resource.photos FROM resource
+        WHERE id=#{id};
+    </select>
+    <select id="findPhotosByIds" parameterType="java.util.List" resultType="String">
+            SELECT resource.photos FROM resource
+            WHERE id IN
+            <foreach collection="list" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+    </select>
+    <select id="findResourceByCourseIdAndDate" resultMap="BaseResultMap" >
+        select
+        <include refid="Resource_BaseColumn_List"/>
+        from resource
+        where course_id = #{courseId,jdbcType=INTEGER} and gmt_create = #{gmtCreate,jdbcType=DATE};
+    </select>
+    <select id="findResourceByPaging_Admin" parameterType="DateByPaging" resultMap="BaseResultMap" >
+        select
+        <include refid="Resource_BaseColumn_List"/>
+        from resource
+        where gmt_create = #{Date,jdbcType=DATE}
+        limit #{toPageNo}, #{pageSize};
+    </select>
+    <select id="getCountResourceByDate" parameterType="String" resultType="Integer" >
+        select count(1) from resource
+        where gmt_create = #{findByDate,jdbcType=DATE}
+    </select>
+</mapper>
